@@ -1,0 +1,61 @@
+version: "3.9"
+
+# 9000 - fraudadsprovider
+# 8001 - skrypt1
+# 8002 - skrypt2
+
+services:
+  fraudadsprovider:
+    build:
+      dockerfile: Dockerfile
+      context: ./FraudAdsProvider
+    depends_on:
+      - logichandler
+    working_dir: /app
+    volumes:
+      - ./FraudAdsProvider:/app
+      - ads_images:/ads_images
+    container_name: FraudAdsProvider
+    restart: always
+    ports:
+      - 9000:9000
+
+  logichandler:
+    build:
+      dockerfile: Dockerfile
+      context: ./LogicHandler
+    working_dir: /app
+    volumes:
+      - ./LogicHandler:/app
+    container_name: LogicHandler
+    ports:
+      - 8001:8001
+    restart: always
+
+  adsscrapper:
+    build:
+      dockerfile: Dockerfile
+      context: ./AdsScrapper
+    working_dir: /app
+    volumes:
+      - ./AdsScrapper:/app
+      - ads_images:/ads_images
+    container_name: AdsScrapper
+    ports:
+      - 8002:8002
+    restart: always
+
+  facerec:
+    build:
+      dockerfile: Dockerfile
+      context: ./FaceRecognition
+    working_dir: /app
+    volumes:
+      - ./FaceRecognition:/app
+    container_name: FaceRecognition
+    ports:
+      - 8003:8003
+    restart: always
+
+volumes:
+  ads_images:

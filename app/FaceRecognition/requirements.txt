@@ -1,0 +1,16 @@
+uvicorn[standard]
+gunicorn
+fastapi
+requests
+asyncio
+keras-vggface @ git+https://github.com/yaledhlab/vggface.git@b76539b7588bca69b0030ad7e4f985f877dc7c0a
+keras-vggface
+Keras-Applications
+keras_preprocessing
+mtcnn
+matplotlib
+numpy
+pillow
+scipy
+tensorflow
+opencv-python-headless
